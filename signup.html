@@ -29,45 +29,41 @@
   </div>
 
   <script>
-    // Initialize Supabase client - replace with your actual project URL and anon key
-    const supabaseUrl = 'https://otsadtelruowzcjczykt.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90c2FkdGVscnVvd3pjamN6eWt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE1ODQ3NTUsImV4cCI6MjA2NzE2MDc1NX0.sYlhLGGtg20K9DFqlRPC_ub1NU9MNV9m3KPrtW38144';
+  const supabaseUrl = 'https://otsadtelruowzcjczykt.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90c2FkdGVscnVvd3pjamN6eWt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE1ODQ3NTUsImV4cCI6MjA2NzE2MDc1NX0.sYlhLGGtg20K9DFqlRPC_ub1NU9MNV9m3KPrtW38144';
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Correct initialization: use createClient from global scope
-    const supabase = createClient(supabaseUrl, supabaseKey);
+  document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    // Handle form submission
-    document.getElementById('signup-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    const email = e.target.email.value.trim();
+    const phone = e.target.phone.value.trim();
+    const password = e.target.password.value;
+    const confirmPassword = e.target['reset-password'].value;
 
-      const email = e.target.email.value.trim();
-      const phone = e.target.phone.value.trim();
-      const password = e.target.password.value;
-      const confirmPassword = e.target['reset-password'].value;
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
 
-      if (password !== confirmPassword) {
-        alert('Passwords do not match');
-        return;
-      }
-
-      // Sign up user with Supabase Auth, storing phone in user_metadata
-      const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: { phone: phone }
-        }
-      });
-
-      if (error) {
-        alert('Signup error: ' + error.message);
-        console.error(error);
-      } else {
-        alert('Signup successful! Please check your email to confirm your account.');
-        // Redirect to login page or clear form
-        window.location.href = 'index.html';
+    // Sign up user with Supabase Auth, storing phone in user_metadata
+    const { data: signupData, error: signupError } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: { phone: phone }
       }
     });
-  </script>
+
+    if (signupError) {
+      alert('Signup error: ' + signupError.message);
+      console.error(signupError);
+    } else {
+      alert('Signup successful! Please check your email to confirm your account.');
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+
 </body>
 </html>
