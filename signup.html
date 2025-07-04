@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <title>Sign Up</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Supabase JS client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
 </head>
 <body>
   <div class="form-container">
@@ -28,7 +26,7 @@
     <p>Already have an account? <a href="index.html">Login</a></p>
   </div>
 
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js">
   const supabaseUrl = 'https://otsadtelruowzcjczykt.supabase.co';
   const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90c2FkdGVscnVvd3pjamN6eWt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE1ODQ3NTUsImV4cCI6MjA2NzE2MDc1NX0.sYlhLGGtg20K9DFqlRPC_ub1NU9MNV9m3KPrtW38144';
   const supabase = createClient(supabaseUrl, supabaseKey);
