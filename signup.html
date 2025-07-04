@@ -32,7 +32,9 @@
     // Initialize Supabase client - replace with your actual project URL and anon key
     const supabaseUrl = 'https://otsadtelruowzcjczykt.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90c2FkdGVscnVvd3pjamN6eWt0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE1ODQ3NTUsImV4cCI6MjA2NzE2MDc1NX0.sYlhLGGtg20K9DFqlRPC_ub1NU9MNV9m3KPrtW38144';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Correct initialization: use createClient from global scope
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Handle form submission
     document.getElementById('signup-form').addEventListener('submit', async (e) => {
@@ -56,12 +58,6 @@
           data: { phone: phone }
         }
       });
-
-      const { data, error } = await supabase.from('users').select('*');
-if (error) {
-  console.error('Error fetching users:', error.message);
-}
-
 
       if (error) {
         alert('Signup error: ' + error.message);
